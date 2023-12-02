@@ -66,7 +66,7 @@ class TaskItem {
 
 ///repository
 class TaskItemRepository {
-  ///fetch taskList by ID or return null if id not found
+  ///fetch task by ID or return null if id not found
   Future<TaskItem?> getTaskById(String id) async => taskItemDB[id];
 
   ///fetch all Tasks
@@ -82,7 +82,7 @@ class TaskItemRepository {
     return formttedlists;
   }
 
-  ///create a new List
+  ///create a new Task
   String createTask({
     required String name,
     required String status,
@@ -90,23 +90,23 @@ class TaskItemRepository {
     String? description,
   }) {
     final id = name.getHashValue;
-    final taskList = TaskItem(
+    final task = TaskItem(
       id: id,
       name: name,
       description: description ?? '',
       status: status,
       listId: listId,
     );
-    taskItemDB[id] = taskList;
+    taskItemDB[id] = task;
     return id;
   }
 
-  ///delete list with id
-  void deleteList(String id) {
+  ///delete [TaskItem] with id
+  void deleteTask(String id) {
     taskItemDB.remove(id);
   }
 
-  ///update taskList
+  ///update taskTask
   Future<void> updateList({
     required String id,
     required String name,
@@ -119,13 +119,13 @@ class TaskItemRepository {
       return Future.error(Exception('List not found'));
     }
 
-    final list = TaskItem(
+    final task = TaskItem(
       id: id,
       name: name,
       description: description ?? '',
       status: status,
       listId: listId,
     );
-    taskItemDB[id] = list;
+    taskItemDB[id] = task;
   }
 }
